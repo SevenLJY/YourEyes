@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_login"
+        android:scaleType="fitXY"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:background="@color/bg_top"
+        android:alpha="0.6">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:orientation="vertical"
+            android:gravity="center">
+            <com.example.menfer.byoureyes.RoundImageView
+                android:layout_width="400px"
+                android:layout_height="400px"
+                android:src="@drawable/photo"
+                android:scaleType="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_ads"
+                android:fontFamily="serif"
+                android:textSize="70px"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="vertical">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:id="@+id/et_username"
+                android:hint="@string/et_username"
+                android:textColor="@color/white"
+                android:background="@color/bg_middle"
+                android:alpha="0.8"
+                android:height="150px"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/et_password"
+                android:hint="@string/et_password"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:background="@color/bg_middle"
+                android:alpha="0.8"
+                android:height="150px"
+                android:inputType="textPassword"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="150px"
+                android:id="@+id/btn_login"
+                android:text="@string/login"
+                android:background="@color/bigButton"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="60px"
+                android:alpha="0.8"
+                />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="150px"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="还没有账户，赶紧"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_register"
+                    android:text="@string/register"
+                    android:textColor="@color/blue"/>
+            </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BYourEyes</string>
+    <string name="et_username">请输入用户名</string>
+    <string name="et_password">请输入密码</string>
+    <string name="et_confPassword">请确认密码</string>
+    <string name="et_newPassword">请输入新密码</string>
+
+
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="login_ads">TO BE YOUR EYES</string>
+</resources>
