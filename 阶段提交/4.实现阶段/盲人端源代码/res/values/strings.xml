@@ -9,4 +9,5 @@
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="login_ads">TO BE YOUR EYES</string>
+    <string name="modifyPassword">修改密码</string>
 </resources>

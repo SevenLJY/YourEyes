@@ -1,5 +1,9 @@
 package com.example.menfer.byoureyes.YEUtils;
 
+import com.example.menfer.byoureyes.FixedValue;
+
+import java.util.HashMap;
+
 /**
  * Created by Menfer on 2017/4/27.
  * 登录的工具类
@@ -19,6 +23,7 @@ public class Login {
      *         2：密码为空
      *         3：用户名与密码不匹配
      *         4：网络原因登录失败
+     *         5:未知异常
      */
     public static int tryLogin(String username,String password){
         result = 0;
@@ -28,7 +33,17 @@ public class Login {
         if(notInput(password)){
             return 2;
         }
-        //开始登录
+        HashMap<String,String> paramsMap = new HashMap<String, String>();
+        paramsMap.put("username",username);
+        paramsMap.put("password",password);
+        String tempResult = UrlUtils.doPost(FixedValue.serverIP+"blogin",paramsMap);
+        if (tempResult.equals(FixedValue.ConnectionFailed)){
+            result = 4;
+        }else if(tempResult.equals(FixedValue.ExceptionOccured)){
+            result = 5;
+        }else {
+            result = Integer.parseInt(tempResult);
+        }
         return result;
     }
 

@@ -2,6 +2,8 @@ package com.example.menfer.byoureyes;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +26,15 @@ public class RegisterAcivity extends Activity {
 
     int result = 0;
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what==0x124){
+                test(result);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +50,16 @@ public class RegisterAcivity extends Activity {
                 username = et_username.getText().toString();
                 password = et_password.getText().toString();
                 confpassword = et_confpassword.getText().toString();
-                result = Register.tryRegister(username,password,confpassword);
-                test(result);
+                //result = Register.tryRegister(username,password,confpassword);
+                //test(result);
+                //新开线程完成注册
+                new Thread(){
+                    @Override
+                    public void run() {
+                        result = Register.tryRegister(username,password,confpassword);
+                        handler.sendEmptyMessage(0x124);
+                    }
+                }.start();
             }
         });
     }
@@ -73,6 +92,9 @@ public class RegisterAcivity extends Activity {
                 break;
             case 7:
                 ToastUtil.show(RegisterAcivity.this,"网络连接失败");
+                break;
+            case 8:
+                ToastUtil.show(RegisterAcivity.this,"出现未知异常");
                 break;
             default:
                 break;

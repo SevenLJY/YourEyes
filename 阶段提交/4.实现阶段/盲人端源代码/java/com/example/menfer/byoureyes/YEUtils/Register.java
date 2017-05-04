@@ -1,5 +1,9 @@
 package com.example.menfer.byoureyes.YEUtils;
 
+import com.example.menfer.byoureyes.FixedValue;
+
+import java.util.HashMap;
+
 /**
  * Created by Menfer on 2017/4/27.
  * 注册的工具类
@@ -20,6 +24,7 @@ public class Register {
      *         5：密码与确认密码不同
      *         6：用户名已存在
      *         7：网络原因注册失败
+     *         8:未知错误（在本类中实际为response转换为int出现异常，不提示用户）
      */
 
     static int result=0;  //存储注册结果
@@ -50,7 +55,17 @@ public class Register {
             return 5;
         }
         //开始注册的代码
-
+        HashMap<String,String> paramsMap = new HashMap<String, String>();
+        paramsMap.put("username",username);
+        paramsMap.put("password",password);
+        String tempResult = UrlUtils.doPost(FixedValue.serverIP+"bregister",paramsMap);
+        if (tempResult.equals(FixedValue.ConnectionFailed)){
+            result = 7;
+        }else if(tempResult.equals(FixedValue.ExceptionOccured)){
+            result = 8;
+        }else {
+            result = Integer.parseInt(tempResult);
+        }
         return result;
     }
 

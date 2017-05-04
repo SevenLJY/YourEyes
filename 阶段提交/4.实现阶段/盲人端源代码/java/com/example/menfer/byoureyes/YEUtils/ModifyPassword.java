@@ -1,5 +1,9 @@
 package com.example.menfer.byoureyes.YEUtils;
 
+import com.example.menfer.byoureyes.FixedValue;
+
+import java.util.HashMap;
+
 /**
  * Created by Menfer on 2017/4/27.
  * 修改密码工具类
@@ -23,6 +27,7 @@ public class ModifyPassword {
      *        5：新密码与确认密码不同
      *        6：用户名与密码不匹配
      *        7：网络原因修改失败
+     *        8:未知异常
      */
 
     public static int tryModify(String username, String password, String newPassword, String confPassword){
@@ -38,10 +43,24 @@ public class ModifyPassword {
         if(pswBadFormat(newPassword)){
             return 4;
         }
+        if(!Check.password_stringFilter(newPassword)){
+            return 4;
+        }
         if(!PCequal(newPassword,confPassword)){
             return 5;
         }
-        //开始修改密码
+        HashMap<String,String> paramsMap = new HashMap<String, String>();
+        paramsMap.put("username",username);
+        paramsMap.put("password",password);
+        paramsMap.put("newPassword",newPassword);
+        String tempResult = UrlUtils.doPost(FixedValue.serverIP+"bmodifyPassword",paramsMap);
+        if (tempResult.equals(FixedValue.ConnectionFailed)){
+            result = 7;
+        }else if(tempResult.equals(FixedValue.ExceptionOccured)){
+            result = 8;
+        }else {
+            result = Integer.parseInt(tempResult);
+        }
         return result;
     }
 

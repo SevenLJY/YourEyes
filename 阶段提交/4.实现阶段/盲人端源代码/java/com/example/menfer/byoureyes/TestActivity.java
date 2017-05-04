@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.menfer.byoureyes.YEUtils.GetPostUtils;
-import com.example.menfer.byoureyes.YEUtils.ToastUtil;
+import com.example.menfer.byoureyes.YEUtils.UrlUtils;
 
-import org.w3c.dom.Text;
+import java.util.HashMap;
 
 /**
  * Created by Menfer on 2017/5/3.
@@ -44,7 +43,9 @@ public class TestActivity extends Activity {
                 new Thread(){
                     @Override
                     public void run() {
-                        response = GetPostUtils.sendGet(FixedValue.serverIP,null);
+                        HashMap<String, String> mymap = new HashMap<String, String>();
+                        mymap.put("username","Menfershare");
+                        response = UrlUtils.doGet(FixedValue.serverIP+"bregister",mymap);
                         handler.sendEmptyMessage(0x123);
                     }
                 }.start();
@@ -57,7 +58,9 @@ public class TestActivity extends Activity {
                 new Thread(){
                     @Override
                     public void run() {
-                        response = GetPostUtils.sendPost(FixedValue.serverIP,"name=menfer");
+                        HashMap<String, String> mymap = new HashMap<String, String>();
+                        mymap.put("username","Menfershare");
+                        response = UrlUtils.doPost(FixedValue.serverIP+"bregister",mymap);
                         handler.sendEmptyMessage(0x123);
                     }
                 }.start();
