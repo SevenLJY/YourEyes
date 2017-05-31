@@ -1,29 +1,38 @@
-package com.example.menfer.byoureyes;
+package com.example.menfer.byoureyes.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.amap.api.maps.model.Text;
+import com.example.menfer.byoureyes.FixedValue;
+import com.example.menfer.byoureyes.R;
 import com.example.menfer.byoureyes.YEUtils.Login;
 import com.example.menfer.byoureyes.YEUtils.ToastUtil;
+import com.example.menfer.byoureyes.YEUtils.VoiceUtil;
 
 /**
  * Created by Menfer on 2017/4/27.
  */
 public class LoginActivity extends Activity implements View.OnClickListener{
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    boolean rememberPassword;
+
     private EditText et_username;
     private EditText et_password;
     private Button btn_login;
     private TextView tv_register;
     private TextView tv_modifyPassword;
+    private CheckBox cb_rememberPassword;
     private String username = "";
     private String password = "";
     private int result=0;
@@ -41,6 +50,10 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //初始化SharedPreferences
+        preferences = getSharedPreferences("YoureyesLogin",MODE_PRIVATE);
+        editor = preferences.edit();
+        //初始化组件
         et_username = (EditText)findViewById(R.id.et_username);
         et_password = (EditText)findViewById(R.id.et_password);
         btn_login = (Button) findViewById(R.id.btn_login);
@@ -49,6 +62,42 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         tv_register.setOnClickListener(this);
         tv_modifyPassword = (TextView)findViewById(R.id.tv_modifyPassword);
         tv_modifyPassword.setOnClickListener(this);
+        cb_rememberPassword = (CheckBox)findViewById(R.id.cb_rememberPassword);
+        rememberPassword = preferences.getBoolean("rememberPassword",false);
+        if(rememberPassword){
+            cb_rememberPassword.setChecked(true);
+            username = preferences.getString("username",null);
+            password = preferences.getString("password",null);
+            et_username.setText(username);
+            et_password.setText(password);
+        }
+        //记住密码选框的监听
+        cb_rememberPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    rememberPassword = true;
+                }else {
+                    rememberPassword = false;
+                }
+            }
+        });
+
+        et_password.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                VoiceUtil.voiceInput(LoginActivity.this, et_password);
+                return false;
+            }
+        });
+
+        et_username.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                VoiceUtil.voiceInput(LoginActivity.this, et_username);
+                return false;
+            }
+        });
 
     }
 
@@ -86,7 +135,21 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private void test(int result){
         switch(result){
             case 0:
-                ToastUtil.show(LoginActivity.this,"登录成功"); //之后跳转到相应界面
+                //检查是否选中记住密码进行相关存储操作
+                if(rememberPassword){
+                    editor.putBoolean("rememberPassword",true);
+                    editor.putString("username",username);
+                    editor.putString("password",password);
+                }else {
+                    editor.putBoolean("rememberPassword",false);
+                    editor.remove("username");
+                    editor.remove("password");
+                }
+                editor.commit();
+                //ToastUtil.show(LoginActivity.this,"登录成功"); //之后跳转到相应界面
+                FixedValue.username = username;
+                Intent intent = new Intent(LoginActivity.this, MapActivity.class);
+                startActivity(intent);
                 break;
             case 1:
                 ToastUtil.show(LoginActivity.this,"请输入用户名");

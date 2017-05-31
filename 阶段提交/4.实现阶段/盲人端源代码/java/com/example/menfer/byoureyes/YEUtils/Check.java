@@ -24,4 +24,11 @@ public class Check {
         Matcher m = r.matcher(str);
         return m.matches();
     }
+
+    public static boolean phoneNumber_stringFilter(String str)throws PatternSyntaxException{
+        String pattern = "^[0-9]{11}$";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(str);
+        return m.matches();
+    }
 }

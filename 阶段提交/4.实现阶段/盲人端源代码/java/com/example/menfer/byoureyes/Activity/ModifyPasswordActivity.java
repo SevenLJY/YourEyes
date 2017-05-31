@@ -1,4 +1,4 @@
-package com.example.menfer.byoureyes;
+package com.example.menfer.byoureyes.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.menfer.byoureyes.R;
 import com.example.menfer.byoureyes.YEUtils.ModifyPassword;
 import com.example.menfer.byoureyes.YEUtils.ToastUtil;
 

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activity.MainActivity"
-    android:background="@color/bg_middle"
     android:gravity="center_vertical">
     <TextView
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="欢迎使用YourEyes\n上滑注册\n下滑登录\n左滑进入菜单"/>
+        android:text="帮助界面\n您可以在任何界面下左滑进入菜单界面\n随后上滑进入帮助界面\n在语音输入时\n说输入完成即完成输入\n说退格可删去一个字符\n"/>
+
 </LinearLayout>
