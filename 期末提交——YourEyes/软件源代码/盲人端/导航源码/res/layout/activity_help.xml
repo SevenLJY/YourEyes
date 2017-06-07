@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical">
+    <TextView
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="帮助界面\n您可以在任何界面下左滑进入菜单界面\n随后上滑进入帮助界面\n在语音输入时\n说输入完成即完成输入\n说退格可删去一个字符\n"/>
+
+</LinearLayout>
